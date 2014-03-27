@@ -1,6 +1,9 @@
 (defproject padawan "0.1.0"
   :description "Multiplayer Clojure web REPL for teaching and learning"
   :url "http://github.com/mkremins/padawan"
+  :license {:name "MIT License"
+            :url "http://opensource.org/licenses/MIT"
+            :distribution :repo}
 
   :dependencies
   [[org.clojure/clojure "1.6.0"]
