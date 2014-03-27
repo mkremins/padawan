@@ -33,7 +33,8 @@
     history.scrollTop = history.scrollHeight;
   };
 
-  var conn = new WebSocket('ws://localhost:8000/ws');
+  var host = location.origin.replace(/^http/, 'ws') + '/ws';
+  var conn = new WebSocket(host);
   conn.onmessage = function(ev) {
     var message = JSON.parse(ev.data);
     pushToRepl(message);

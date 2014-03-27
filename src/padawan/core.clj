@@ -39,8 +39,8 @@
   (route/files "" {:root "resources"})
   (route/not-found "<p>Page not found.</p>"))
 
-(defn -main [& args]
-  (let [port 8000]
+(defn -main [port & args]
+  (let [port (Integer/parseInt port)]
     (println "Starting server on port" port "...")
     (run-server (handler/site app-routes) {:port port})
     (println "Server started.")))
