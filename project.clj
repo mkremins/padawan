@@ -8,6 +8,7 @@
   :dependencies
   [[org.clojure/clojure "1.6.0"]
    [org.clojure/data.json "0.2.4"]
+   [clojail "1.0.6"]
    [compojure "1.1.6"]
    [http-kit "2.1.18"]
    [javax.servlet/servlet-api "2.5"]

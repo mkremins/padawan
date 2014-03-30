@@ -1,16 +1,26 @@
 (ns padawan.core
   (:use [compojure.core]
         [org.httpkit.server])
-  (:require [clojure.data.json :as json]
+  (:require [clojail.core :refer [sandbox]]
+            [clojail.testers :refer [blanket secure-tester-without-def]]
+            [clojure.data.json :as json]
             [compojure.handler :as handler]
-            [compojure.route :as route]))
+            [compojure.route :as route])
+  (:import java.io.StringWriter))
 
 (def clients (atom {}))
 
+(def sandboxed-eval
+  (sandbox (conj secure-tester-without-def
+                 (blanket "padawan"))))
+
 (defn eval-code! [code]
   (try
-    (let [value (eval (read-string code))]
-      {:code code :successful? true :value value})
+    (let [form (binding [*read-eval* false] (read-string code))
+          [value out] (with-open [out (StringWriter.)]
+                        (let [value (sandboxed-eval form {#'*out* out})]
+                          [value (str out)]))]
+      {:code code :successful? true :value value :out out})
     (catch Exception error
       {:code code :successful? false :error (str error)})))
 
