@@ -14,4 +14,5 @@
    [javax.servlet/servlet-api "2.5"]
    [ring/ring-core "1.2.2"]]
 
+  :jvm-opts ["-Djava.security.policy=.java.policy"]
   :main padawan.core)
